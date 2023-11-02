@@ -1,0 +1,8 @@
+model/config.json
+model/generation_config.json
+model/pytorch_model.bin
+model/source.spm
+model/special_tokens_map.json
+model/target.spm
+model/tokenizer_config.json
+model/vocab.json
