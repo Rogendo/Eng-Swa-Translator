@@ -6,3 +6,4 @@ model/special_tokens_map.json
 model/target.spm
 model/tokenizer_config.json
 model/vocab.json
+venv

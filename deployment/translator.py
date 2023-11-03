@@ -13,3 +13,6 @@ translator = pipeline(
 def translate_text(text):
     translated_text = translator(text, max_length=128, num_beams=5)[0]['generated_text']
     return translated_text
+
+# text="he is a big man, he can make his own choices"
+# translate_text(text)
