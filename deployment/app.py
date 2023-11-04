@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
-from translator import translate_text
+from translator import translate_text_eng_swa, translate_text_swa_eng
 
 app = Flask(__name__)
 
@@ -19,7 +19,9 @@ def chat():
 
 @socketio.on('message')
 def handle_message(message):
-    translated_text = translate_text(message)
+    # translated_text = translate_text_eng_swa(message)
+    translated_text = translate_text_swa_eng(message)
+
     data = {
         'original': message,
         'translated': translated_text
