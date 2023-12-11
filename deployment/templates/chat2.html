@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Web Chat App - Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+            
+            socket.on('connect', function() {
+                socket.send('You are connected!');
+            });
+            
+            socket.on('eng_message', function(data) {
+                var originalMessage = data.original;
+                var translatedMessage = data.translated;
+                
+                $('#messages').append('<div class="chat-message"><p class="sender">New English Message</p><p class="message">' + originalMessage + '</p></div>');
+                $('#messages').append('<div class="chat-message"><p class="sender">Mswahili</p><p class="message">' + translatedMessage + '</p></div>');
+                
+                $('.chat-body').scrollTop($('.chat-body')[0].scrollHeight);
+            });
+
+            $('form#message-form').submit(function(event) {
+                var message = $('#message').val();
+                if (message.trim() !== '') {
+                    socket.send(message);
+                    $('#message').val('').focus();
+                }
+                event.preventDefault();
+            });
+        });
+    </script>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1 style="text-align: center;">Welcome to Swahili-English Translator</h1>
+        </div>
+        <div class="chat-body">
+            <div id="messages"></div>
+        </div>
+        <div class="chat-footer">
+            <form id="message-form">
+                <input type="text" id="message" class="chat-input" autocomplete="off">
+                <input type="submit" class="chat-send-button" value="Send">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
