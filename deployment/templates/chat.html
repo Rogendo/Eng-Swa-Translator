@@ -21,7 +21,17 @@
                 
                 $('.chat-body').scrollTop($('.chat-body')[0].scrollHeight);
             });
-            
+            // socket.on('eng_message', function(data) {
+            //     var originalMessage = data.original;
+            //     var translatedMessage = data.translated;
+                
+            //     $('#messages').append('<div class="chat-message"><p class="sender">New English Message</p><p class="message">' + originalMessage + '</p></div>');
+            //     $('#messages').append('<div class="chat-message"><p class="sender">Mswahili</p><p class="message">' + translatedMessage + '</p></div>');
+                
+            //     $('.chat-body').scrollTop($('.chat-body')[0].scrollHeight);
+            // });
+                
+
             $('form#message-form').submit(function(event) {
                 var message = $('#message').val();
                 if (message.trim() !== '') {
@@ -37,7 +47,7 @@
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h1 style="text-align: center;">Welcome to Kenya 🇰🇪 🤝🏾</h1>
+            <h1 style="text-align: center;">Welcome to Swahili-English Translator</h1>
         </div>
         <div class="chat-body">
             <div id="messages"></div>
