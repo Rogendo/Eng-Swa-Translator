@@ -1,6 +1,27 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from translator import translate_text_eng_swa, translate_text_swa_eng
+# this handles language detection
+import spacy
+from spacy.language import Language
+from spacy_langdetect import LanguageDetector
+
+
+# Language detector
+def get_lang_detector(nlp, name):
+    return LanguageDetector()
+
+# # Load the English language model
+nlp = spacy.load("en_core_web_sm")
+
+# # Register the language detection factory
+Language.factory("language_detector", func=get_lang_detector)
+
+# # Add the language detection component to the pipeline
+nlp.add_pipe('language_detector', last=True)
+
+
+
 
 app = Flask(__name__)
 
@@ -24,8 +45,22 @@ def chat2():
 
 @socketio.on('message')
 def handle_message(message):
-    translated_text = translate_text_eng_swa(message)
-    # translated_text = translate_text_swa_eng(message)
+
+    # language detection
+    doc=nlp(message)
+    detected_language = doc._.language['language']
+    print(f"Detected language: {detected_language}")   
+
+    if detected_language=="en":   
+        translated_text=translate_text_eng_swa(message)
+        print(translate_text_eng_swa(message))
+    elif detected_language=='sw':
+        translated_text=translate_text_swa_eng(message)
+        print(translate_text_swa_eng(message))
+    else:
+        translated_text="Sorry, I can't translate that"
+        print("Sorry, I can't translate that")
+
 
     data = {
         'original': message,
