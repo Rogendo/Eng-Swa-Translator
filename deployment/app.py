@@ -39,10 +39,6 @@ def chat():
     return render_template('chat.html')
 
 
-@app.route('/chat2', methods=['GET', 'POST'])
-def chat2():
-    return render_template('chat2.html')
-
 @socketio.on('message')
 def handle_message(message):
 

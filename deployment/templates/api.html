@@ -3,9 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Documentation</title>
+    <title>Translation API Demo</title>
 </head>
 <body>
-    
+
+<h1>Translation API Demo</h1>
+
+<!-- English to Swahili -->
+<div>
+    <label for="enToSwInput">English to Swahili:</label>
+    <input type="text" id="enToSwInput" placeholder="Enter text in English">
+    <button onclick="translate('en-sw')">Translate</button>
+    <p id="enToSwResult"></p>
+</div>
+
+<!-- Swahili to English -->
+<div>
+    <label for="swToEnInput">Swahili to English:</label>
+    <input type="text" id="swToEnInput" placeholder="Ingiza maandishi kwa Kiswahili">
+    <button onclick="translate('sw-en')">Translate</button>
+    <p id="swToEnResult"></p>
+</div>
+
+<script>
+async function translate(direction) {
+    const inputElement = direction === 'en-sw' ? document.getElementById('enToSwInput') : document.getElementById('swToEnInput');
+    const resultElement = direction === 'en-sw' ? document.getElementById('enToSwResult') : document.getElementById('swToEnResult');
+
+    const textToTranslate = inputElement.value;
+
+    if (!textToTranslate) {
+        resultElement.textContent = 'Please enter text.';
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/translate/${direction}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: textToTranslate }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            resultElement.textContent = `Translation: ${data.translation}`;
+        } else {
+            resultElement.textContent = `Error: ${data.message}`;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        resultElement.textContent = 'An error occurred.';
+    }
+}
+</script>
+
 </body>
 </html>
