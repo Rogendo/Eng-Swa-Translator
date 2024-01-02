@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,request,jsonify
 from flask_socketio import SocketIO, emit
 from translator import translate_text_eng_swa, translate_text_swa_eng
 # this handles language detection
@@ -78,6 +78,25 @@ def handle_eng_message(message):
     }
     emit('eng_message', data, broadcast=True)
 
+# API endpoints
+
+@app.route('/translate/en-sw', methods=['POST'])
+def translate_en_sw():
+    data = request.get_json()
+    text_to_translate = data.get('text')
+    translated_text = translate_text_eng_swa(text_to_translate)
+    return jsonify({'translation': translated_text})
+
+@app.route('/translate/sw-en', methods=['POST'])
+def translate_sw_en():
+    data = request.get_json()
+    text_to_translate = data.get('text')
+    translated_text = translate_text_swa_eng(text_to_translate,)
+    return jsonify({'translation': translated_text})
+
+@app.route('/api')
+def api():
+    return render_template('api.html')
 
 if __name__ == '__main__':
     socketio.run(app)
