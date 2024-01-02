@@ -94,7 +94,48 @@ types, including formal documents, informal conversations, technical content, an
 
 ![Screenshot from 2024-01-02 22-51-39](https://github.com/Rogendo/Eng-Swa-Translator/assets/62094358/26eff7b6-8a4c-47cc-bbdd-920cf4623a48)
 
+# How to run it?
 
+First step is to download the models from the link <a href="https://drive.google.com/drive/folders/1ybwgK1XNG1wd8As0m9vjMdQfHmD6E9uk?usp=sharing"> MODEL </a> add the model in the root project directory.
+
+The following instructions were tested on the Windows and Linux with Python 3.8.
+
+1. Clone this repository
+
+```
+git clone https://github.com/Rogendo/Eng-Swa-Translator.git
+```
+```
+cd Eng-Swa-Translator/
+```
+
+2. Create and activate virtual environment 
+
+```
+python -m venv venv
+```
+on Linux system
+```
+source venv/bin/activate
+```
+on Windows system
+```
+.\venv\Scripts\activate.bat
+```
+3. Install requirements
+
+```
+pip install  -r requirements.txt
+```
+
+```
+cd deployment/
+```
+4. Run the 
+```
+flask --app app --debug run
+
+```
 
 <!-- ROADMAP -->
 ## Roadmap
