@@ -16,21 +16,12 @@
                 var originalMessage = data.original;
                 var translatedMessage = data.translated;
                 
-                $('#messages').append('<div class="chat-message"><p class="sender">New Message</p><p class="message">' + originalMessage + '</p></div>');
-                $('#messages').append('<div class="chat-message"><p class="sender">Mswahili</p><p class="message">' + translatedMessage + '</p></div>');
+                $('#messages').append('<div class="chat-message"><p class="sender">Input text</p><p class="message">' + originalMessage + '</p></div>');
+                $('#messages').append('<div class="chat-message"><p class="sender">Translation</p><p class="message">' + translatedMessage + '</p></div>');
                 
                 $('.chat-body').scrollTop($('.chat-body')[0].scrollHeight);
             });
-            // socket.on('eng_message', function(data) {
-            //     var originalMessage = data.original;
-            //     var translatedMessage = data.translated;
-                
-            //     $('#messages').append('<div class="chat-message"><p class="sender">New English Message</p><p class="message">' + originalMessage + '</p></div>');
-            //     $('#messages').append('<div class="chat-message"><p class="sender">Mswahili</p><p class="message">' + translatedMessage + '</p></div>');
-                
-            //     $('.chat-body').scrollTop($('.chat-body')[0].scrollHeight);
-            // });
-                
+        
 
             $('form#message-form').submit(function(event) {
                 var message = $('#message').val();
@@ -41,23 +32,99 @@
                 event.preventDefault();
             });
         });
+console.clear();
+
+const cardsContainer = document.querySelector(".cards");
+const cardsContainerInner = document.querySelector(".cards__inner");
+const cards = Array.from(document.querySelectorAll(".card"));
+const overlay = document.querySelector(".overlay");
+
+const applyOverlayMask = (e) => {
+  const overlayEl = e.currentTarget;
+  const x = e.pageX - cardsContainer.offsetLeft;
+  const y = e.pageY - cardsContainer.offsetTop;
+
+  overlayEl.style = `--opacity: 1; --x: ${x}px; --y:${y}px;`;
+};
+
+const createOverlayCta = (overlayCard, ctaEl) => {
+  const overlayCta = document.createElement("div");
+  overlayCta.classList.add("cta");
+  overlayCta.textContent = ctaEl.textContent;
+  overlayCta.setAttribute("aria-hidden", true);
+  overlayCard.append(overlayCta);
+};
+
+const observer = new ResizeObserver((entries) => {
+  entries.forEach((entry) => {
+    const cardIndex = cards.indexOf(entry.target);
+    let width = entry.borderBoxSize[0].inlineSize;
+    let height = entry.borderBoxSize[0].blockSize;
+
+    if (cardIndex >= 0) {
+      overlay.children[cardIndex].style.width = `${width}px`;
+      overlay.children[cardIndex].style.height = `${height}px`;
+    }
+  });
+});
+
+const initOverlayCard = (cardEl) => {
+  const overlayCard = document.createElement("div");
+  overlayCard.classList.add("card");
+  createOverlayCta(overlayCard, cardEl.lastElementChild);
+  overlay.append(overlayCard);
+  observer.observe(cardEl);
+};
+
+cards.forEach(initOverlayCard);
+document.body.addEventListener("pointermove", applyOverlayMask);
+
     </script>
     <link rel="stylesheet" type="text/css" href="../static/style.css">
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1 style="text-align: center;">Welcome to Swahili-English Translator</h1>
+  
+    <main class="main flow">
+        
+       
+        <h1 class="main__heading">English-Swahili Translator</h1>
+        <div class="main__cards cards">
+          <div class="cards__inner">
+            
+      
+            <div class="cards__card card">
+            <a href="#pro" class="card__cta cta">Input Text</a>
+
+              <!-- <div class="chat-footer"> -->
+                <form id="message-form">
+                    <textarea id="message" class="card__cta cta" rows="10" cols="50" ></textarea>
+                    <input type="submit" class="chat-send-button" value="Send" >
+
+                  </form>
+
+            <!-- </div> -->
+              
+            </div>
+      
+            <div class="cards__card card">
+                <a href="#ultimate" class="card__cta cta">Translations</a>
+
+                <div id="my-scrollable-div">
+                
+              
+                    <div class="chat-body">
+                            <div class="messages", id="messages">
+
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            </div>
+          </div>
+          
+          <div class="overlay cards__inner"></div>
         </div>
-        <div class="chat-body">
-            <div id="messages"></div>
-        </div>
-        <div class="chat-footer">
-            <form id="message-form">
-                <input type="text" id="message" class="chat-input" autocomplete="off">
-                <input type="submit" class="chat-send-button" value="Send">
-            </form>
-        </div>
-    </div>
+      </main>
 </body>
 </html>
