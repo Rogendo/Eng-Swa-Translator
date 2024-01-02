@@ -91,8 +91,8 @@ types, including formal documents, informal conversations, technical content, an
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-file:///home/rogendo/Pictures/Screenshots/Screenshot%20from%202024-01-02%2022-51-39.png
 
+![Screenshot from 2024-01-02 22-51-39](https://github.com/Rogendo/Eng-Swa-Translator/assets/62094358/26eff7b6-8a4c-47cc-bbdd-920cf4623a48)
 
 
 
