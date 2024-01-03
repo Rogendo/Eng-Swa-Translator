@@ -200,16 +200,16 @@ Project Link: [https://github.com/Rogendo/Eng-Swa-Translator/issues](https://git
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/Rogendo/English-to-Swahili-Translation-NLP-.svg?style=for-the-badge
-[contributors-url]: https://github.com/Rogendo/English-to-Swahili-Translation-NLP-/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/afriverse-for-tech/projectcodex.svg?style=for-the-badge
-[forks-url]: https://github.com/Rogendo/English-to-Swahili-Translation-NLP-/network/members
-[stars-shield]: https://img.shields.io/github/stars/afriverse-for-tech/projectcodex.svg?style=for-the-badge
-[stars-url]: https://github.com/Rogendo/English-to-Swahili-Translation-NLP-/stargazers
-[issues-shield]: https://img.shields.io/github/issues/afriverse-for-tech/projectcodex.svg?style=for-the-badge
-[issues-url]: https://github.com/Rogendo/English-to-Swahili-Translation-NLP-/issues
-[license-shield]: https://img.shields.io/github/license/afriverse-for-tech/projectcodex.svg?style=for-the-badge
-[license-url]: https://github.com/Rogendo/English-to-Swahili-Translation-NLP-/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/Rogendo/Eng-Swa-Translator.svg?style=for-the-badge
+[contributors-url]: https://github.com/Rogendo/Eng-Swa-Translator/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Rogendo/Eng-Swa-Translator.svg?style=for-the-badge
+[forks-url]: https://github.com/Rogendo/Eng-Swa-Translator/network/members
+[stars-shield]: https://img.shields.io/github/stars/Rogendo/Eng-Swa-Translator.svg?style=for-the-badge
+[stars-url]: https://github.com/Rogendo/Eng-Swa-Translator/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Rogendo/Eng-Swa-Translator.svg?style=for-the-badge
+[issues-url]: https://github.com/Rogendo/Eng-Swa-Translator/issues
+[license-shield]: https://img.shields.io/github/license/Rogendo/Eng-Swa-Translator.svg?style=for-the-badge
+[license-url]: https://github.com/Rogendo/Eng-Swa-Translator/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/Discord-35495E?style=for-the-badge&logo=discord&logoColor=white
 [linkedin-url]: #
 
