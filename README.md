@@ -95,7 +95,7 @@ types, including formal documents, informal conversations, technical content, an
 ![Screenshot from 2024-01-24 11-14-42](https://github.com/Rogendo/Eng-Swa-Translator/assets/62094358/91b2ab82-77be-4784-9e42-e070c10dc4e4)
 
 
-![Uploading Screenshot from 2024-01-07 11-41-01.png…]()
+![Screenshot from 2024-01-07 11-41-01](https://github.com/Rogendo/Eng-Swa-Translator/assets/62094358/15807184-77d9-4bed-ad34-3c1c96199b2f)
 
 # How to run it?
 
