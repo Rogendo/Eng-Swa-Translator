@@ -4,34 +4,78 @@ from flask_socketio import SocketIO, emit
 from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
 
 # translator pipeline for english to swahili translations
-eng_swa_model_checkpoint = "Helsinki-NLP/opus-mt-en-swc"
-eng_swa_tokenizer = AutoTokenizer.from_pretrained("../model/eng_swa_model/")
-eng_swa_model = AutoModelForSeq2SeqLM.from_pretrained("../model/eng_swa_model/")
 
-eng_swa_translator = pipeline(
+def translate_text_eng_swa(text):
+    eng_swa_tokenizer = AutoTokenizer.from_pretrained("../model/eng_swa_model/")
+    eng_swa_model = AutoModelForSeq2SeqLM.from_pretrained("../model/eng_swa_model/")
+
+    eng_swa_translator = pipeline(
     "text2text-generation",
     model=eng_swa_model,
     tokenizer=eng_swa_tokenizer,
-)
+    )
 
-def translate_text_eng_swa(text):
     translated_text = eng_swa_translator(text, max_length=128, num_beams=5)[0]['generated_text']
     return translated_text
 
 # translator pipeline for swahili to english translations
-swa_eng_model_checkpoint = "Helsinki-NLP/opus-mt-swc-en"
-swa_eng_tokenizer = AutoTokenizer.from_pretrained("../model/swa_eng_model/")
-swa_eng_model = AutoModelForSeq2SeqLM.from_pretrained("../model/swa_eng_model/")
 
-swa_eng_translator = pipeline(
+def translate_text_swa_eng(text):
+    swa_eng_tokenizer = AutoTokenizer.from_pretrained("../model/swa_eng_model/")
+    swa_eng_model = AutoModelForSeq2SeqLM.from_pretrained("../model/swa_eng_model/")
+
+    swa_eng_translator = pipeline(
     "text2text-generation",
     model=swa_eng_model,
     tokenizer=swa_eng_tokenizer,
-)
+    )
 
-def translate_text_swa_eng(text):
     translated_text = swa_eng_translator(text, max_length=128, num_beams=5)[0]['generated_text']
     return translated_text
+
+
+# translator pipeline for english to french translations
+# english to french
+
+
+
+
+def translate_text_eng_fr(text):
+    eng_fr_tokenizer = AutoTokenizer.from_pretrained("../model/en_fr_model/")
+    eng_fr_model = AutoModelForSeq2SeqLM.from_pretrained("../model/en_fr_model/")
+
+    eng_fr_translator = pipeline(
+        "text2text-generation",
+        model=eng_fr_model,
+        tokenizer=eng_fr_tokenizer,
+
+    )
+
+    translated_text = eng_fr_translator(text, max_length=128, num_beams=5)[0]['generated_text']
+    return translated_text
+
+
+
+# French to English
+
+
+
+def translate_text_fr_eng(text):
+    fr_eng_tokenizer =  AutoTokenizer.from_pretrained("../model/fr_en_model")
+    fr_eng_model = AutoModelForSeq2SeqLM.from_pretrained("../model/fr_en_model")
+
+    fr_eng_translator = pipeline(
+    "text2text-generation",
+    model=fr_eng_model,
+    tokenizer=fr_eng_tokenizer,
+
+    )
+
+    translated_text = fr_eng_translator(text, max_length=128, num_beams=5)[0]['generated_text']
+    return translated_text
+
+
+
 
 # this handles language detection
 import spacy
@@ -82,12 +126,18 @@ def handle_message(message):
     if detected_language=="en":   
         translated_text=translate_text_eng_swa(message)
         print(translate_text_eng_swa(message))
+   
+    elif detected_language=='fr':
+        translated_text=translate_text_fr_eng(message)
+        print(translate_text_fr_eng(message))
+
     elif detected_language=='sw':
         translated_text=translate_text_swa_eng(message)
         print(translate_text_swa_eng(message))
     else:
         translated_text="Sorry, I can't translate that"
         print("Sorry, I can't translate that")
+    
 
 
     data = {
@@ -97,14 +147,6 @@ def handle_message(message):
     emit('message', data, broadcast=True)
     
 @socketio.on('eng_message')
-def handle_eng_message(message):
-    translated_text = translate_text_swa_eng(message)
-
-    data = {
-        'original': message,
-        'translated': translated_text
-    }
-    emit('eng_message', data, broadcast=True)
 
 # API endpoints
 
