@@ -1,38 +1,104 @@
 from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
 
 # translator pipeline for english to swahili translations
-eng_swa_model_checkpoint = "Helsinki-NLP/opus-mt-en-swc"
-eng_swa_tokenizer = AutoTokenizer.from_pretrained("../model/eng_swa_model/")
-eng_swa_model = AutoModelForSeq2SeqLM.from_pretrained("../model/eng_swa_model/")
 
-eng_swa_translator = pipeline(
+def translate_text_eng_swa(text):
+    eng_swa_tokenizer = AutoTokenizer.from_pretrained("../model/eng_swa_model/")
+    eng_swa_model = AutoModelForSeq2SeqLM.from_pretrained("../model/eng_swa_model/")
+
+
+
+    eng_swa_translator = pipeline(
     "text2text-generation",
     model=eng_swa_model,
     tokenizer=eng_swa_tokenizer,
-)
+    )
 
-def translate_text_eng_swa(text):
     translated_text = eng_swa_translator(text, max_length=128, num_beams=5)[0]['generated_text']
     return translated_text
 
 # translator pipeline for swahili to english translations
-swa_eng_model_checkpoint = "Helsinki-NLP/opus-mt-swc-en"
-swa_eng_tokenizer = AutoTokenizer.from_pretrained("../model/swa_eng_model/")
-swa_eng_model = AutoModelForSeq2SeqLM.from_pretrained("../model/swa_eng_model/")
 
-swa_eng_translator = pipeline(
+def translate_text_swa_eng(text):
+    swa_eng_tokenizer = AutoTokenizer.from_pretrained("../model/swa_eng_model/")
+    swa_eng_model = AutoModelForSeq2SeqLM.from_pretrained("../model/swa_eng_model/")
+
+    swa_eng_translator = pipeline(
     "text2text-generation",
     model=swa_eng_model,
     tokenizer=swa_eng_tokenizer,
-)
+    )
 
-def translate_text_swa_eng(text):
     translated_text = swa_eng_translator(text, max_length=128, num_beams=5)[0]['generated_text']
     return translated_text
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# translator pipeline for english to french translations
+# english to french
+
+
+
+
+def translate_text_eng_fr(text):
+    eng_fr_tokenizer = AutoTokenizer.from_pretrained("../model/en_fr_model/")
+    eng_fr_model = AutoModelForSeq2SeqLM.from_pretrained("../model/en_fr_model/")
+
+    eng_fr_translator = pipeline(
+        "text2text-generation",
+        model=eng_fr_model,
+        tokenizer=eng_fr_tokenizer,
+
+    )
+
+    translated_text = eng_fr_translator(text, max_length=128, num_beams=5)[0]['generated_text']
+    return translated_text
+
+
+
 # text="he is a big man, he can make his own choices"
-# translated_text=translate_text_eng_swa(text)
+# translated_text=translate_text_eng_fr(text)
 # print(translated_text)
+
+# french to English
+
+
+
+def translate_text_fr_eng(text):
+    fr_eng_tokenizer =  AutoTokenizer.from_pretrained("./model/fr_en_model")
+    fr_eng_model = AutoModelForSeq2SeqLM.from_pretrained("./model/fr_en_model")
+
+    fr_eng_translator = pipeline(
+    "text2text-generation",
+    model=fr_eng_model,
+    tokenizer=fr_eng_tokenizer,
+
+    )
+
+    translated_text = fr_eng_translator(text, max_length=128, num_beams=5)[0]['generated_text']
+    return translated_text
+
+
+
+text="Je m'apelle Peter Rogendo, et toi?"
+translated_text=translate_text_fr_eng(text)
+print(translated_text)
+
+
+
 # # is_translation_correct=bool
 
 # while True:
