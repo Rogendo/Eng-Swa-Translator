@@ -139,6 +139,79 @@ cd deployment/
 flask --app app --debug run
 
 ```
+## Deployed Model on Hugging Face
+
+The English-Swahili translation model has been successfully deployed on Hugging Face, a popular platform for hosting and sharing machine learning models. 
+The deployment enables seamless integration with applications via an API, making it accessible to developers and end-users globally.
+
+### Model Details
+
+    Model Name: Rogendo/en-sw, Rogendo/sw-en
+    Hosted Platform: Hugging Face Model Hub
+    Architecture: Transformer-based Neural Network, fine-tuned for English-Swahili translations.
+    Dataset: Trained on datasets like JW300 and CCMatrix, which include diverse linguistic contexts.
+
+### How to Access the Model
+
+    Visit the model's page on Hugging Face: [https://huggingface.co/Rogendo/en-sw](https://huggingface.co/Rogendo/en-sw).
+    Use the Inference API directly from the Hugging Face interface:
+        Input text in English or Swahili.
+        Receive instant translations without additional setup.
+    Integrate the model into your application:
+        Install transformers via pip install transformers.
+        Use the provided code snippet to load and use the model locally or through the API.
+
+### Sample Code
+``` python
+"""
+    main.py
+
+
+    If training the model proves to be too much for you either computationally, or timewise, You can utilise the deployed version of the model in huggingface
+    through the code provided below in the 'main.py' file  Example usage from the deployed model in huggingface. Happy coding! 
+    
+"""
+from transformers import pipeline
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+
+eng_swa_tokenizer = AutoTokenizer.from_pretrained("Rogendo/en-sw")
+eng_swa_model = AutoModelForSeq2SeqLM.from_pretrained("Rogendo/en-sw")
+
+eng_swa_translator = pipeline(
+    "text2text-generation",
+    model = eng_swa_model,
+    tokenizer = eng_swa_tokenizer,
+)
+
+
+
+
+swa_eng_tokenizer = AutoTokenizer.from_pretrained("Rogendo/sw-en")
+swa_eng_model = AutoModelForSeq2SeqLM.from_pretrained("Rogendo/sw-en")
+
+swa_eng_translator = pipeline(
+    "text2text-generation",
+    model = swa_eng_model,
+    tokenizer = swa_eng_tokenizer,
+)
+
+def translate_text_swa_eng(text):
+  translated_text = swa_eng_translator(text,max_length=128, num_beams=5)[0]['generated_text']
+  return translated_text
+
+def translate_text_eng_swa(text):
+    translated_text = eng_swa_translator(text, max_length=128, num_beams=5)[0]['generated_text']
+    return translated_text
+
+text = "Ninampenda sana mama yangu, bila yeye singekuwa mahali nilipo sasa"
+translate_text_swa_eng(text)
+
+text = "My name is John, I love Food so much that I can let it kill me if it had hands of its own"
+translate_text_eng_swa(text)
+
+
+```
 
 <!-- ROADMAP -->
 ## Roadmap
